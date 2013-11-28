@@ -5,6 +5,6 @@ window.MyTunes.Views = window.MyTunes.Views || {};
 MyTunes.Views.SongQueueView = Backbone.View.extend({
   
   initialize: function() {
-
+  	this.render();
   }
 });
