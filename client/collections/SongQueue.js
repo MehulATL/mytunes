@@ -8,8 +8,6 @@ MyTunes.Collections.SongQueue = MyTunes.Collections.Songs.extend({
   },
 
   playFirst: function(song) {
-  	// this.model = song;
-  	// this.model.play();
-
+    this.at(0).play();
   }
 });
