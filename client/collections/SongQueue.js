@@ -4,12 +4,21 @@ window.MyTunes.Collections = window.MyTunes.Collections || {};
 
 MyTunes.Collections.SongQueue = MyTunes.Collections.Songs.extend({
 
+  model: MyTunes.Models.SongModel,
+
   initialize: function(){
     this.on('add', this.checkFirst, this);
     this.on('ended', this.removeFirst, this);
+    this.on('dequeue', this.removeFirst, this);
+    this.on('enqueue', this.storage.push(this));
   },
 
+  storage: [],
+
   checkFirst: function(song){
+    if(!_.contains(this.storage,song)){
+      this.storage.push(song);
+    }
     if(this.length === 1){
       this.playFirst();
     }
@@ -25,4 +34,5 @@ MyTunes.Collections.SongQueue = MyTunes.Collections.Songs.extend({
       this.playFirst();
     }
   }
+
 });
