@@ -7,30 +7,28 @@ MyTunes.Collections.SongQueue = MyTunes.Collections.Songs.extend({
   model: MyTunes.Models.SongModel,
 
   initialize: function(){
-    this.on('add', this.checkFirst, this);
-    this.on('ended', this.removeFirst, this);
-    this.on('dequeue', this.removeFirst, this);
-    this.on('enqueue', this.storage.push(this));
+    this.on('add', this._enqueue, this);
+    this.on('ended', this._playNext, this);
+    this.on('dequeue', this._dequeue, this);
   },
 
-  storage: [],
-
-  checkFirst: function(song){
-    if(!_.contains(this.storage,song)){
-      this.storage.push(song);
-    }
+  _enqueue: function(song){
     if(this.length === 1){
       this.playFirst();
     }
   },
 
-  playFirst: function(song) {
+  _dequeue: function(song){
+      this.remove(song);
+    },
+
+  playFirst: function() {
     this.at(0).play();
   },
 
-  removeFirst: function(){
-    this.remove(this.at(0));
-    if(this.length){
+  _playNext: function(){
+    this.shift();
+    if(this.length > 0){
       this.playFirst();
     }
   }

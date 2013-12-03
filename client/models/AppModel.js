@@ -25,6 +25,11 @@ MyTunes.Models.AppModel = Backbone.Model.extend({
     params.library.on('dequeue', function(song) {
       this.get('songQueue').remove(song);
     }, this);
+
+    // this.get('songQueue').on('stop', function(){
+    //   this.set('currentSong', null);
+    //   this.tr
+    //  })
   }
 
 });
